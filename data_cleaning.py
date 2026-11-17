@@ -19,7 +19,7 @@ def clean_games() -> pd.DataFrame:
     lower_year_mask = raw_games_data["season"] >= 2012
     upper_year_mask = raw_games_data["season"] <= 2025
     cleaned_games_data = raw_games_data[lower_year_mask & upper_year_mask]
-    games_master = cleaned_games_data[["game_id", "season", "week",
+    games_master = cleaned_games_data[["season", "week",
                                        "home_team", "away_team",
                                        "home_rest", "away_rest"]].copy()
     teams = ["home_team", "away_team"]
@@ -62,11 +62,66 @@ def clean_injuries() -> pd.DataFrame:
     return injuries_master
 
 
+def count_outs(injuries: pd.DataFrame) -> pd.DataFrame:
+    '''
+    Given a Pandas DataFrame of NFL injuries, counts how many "Out"
+    designations each team had in each week. Returns a Pandas DataFrame
+    with the year, team, week, and number of "Out" designations the team
+    had that week.
+    '''
+    outs = injuries[injuries['report_status'] == 'Out']
+    groups = outs.groupby(['season', 'team', 'week'])
+
+    num_injuries = groups.size().rename("injuries")
+    num_injuries = num_injuries.reset_index()
+
+    return num_injuries
+
+
+def team_rest(games: pd.DataFrame) -> pd.DataFrame:
+    '''
+    Given a Pandas DataFrame of NFL games, splts each game into a row of the
+    home team and a row for the away team because each team can different days
+    of rest. Returns a Pandas DataFrame with the season, week, team,
+    and number of days of rest that team had before the game.
+    '''
+    home = games[['season', 'week', 'home_team', 'home_rest']]
+    home = home.rename(
+        columns={'home_team': 'team', 'home_rest': 'rest_days'})
+
+    away = games[['season', 'week', 'away_team', 'away_rest']]
+    away = away.rename(
+        columns={'away_team': 'team', 'away_rest': 'rest_days'})
+
+    rest = pd.concat([home, away])
+
+    return rest
+
+
+def match_injuries_to_games(outs: pd.DataFrame,
+                            rest: pd.DataFrame) -> pd.DataFrame:
+    '''
+    Given a Pandas DataFrame of the number of "Out" designations and a Pandas
+    DataFrame of the number of rest days each team has, matches each team's
+    injuries to the game it played that week. Returns a Pandas DataFrame with
+    one row per team per game, with the team's rest days and the number of
+    injuries the team had.
+    '''
+    merged = rest.merge(outs, on=['season', 'team', 'week'], how='left')
+    merged['injuries'] = merged['injuries'].fillna(0)
+    merged.to_csv("games_and_injuries.csv")
+
+    return merged
+
+
 def main() -> None:
     games_data = clean_games()
     injuries_data = clean_injuries()
-    games_data.to_csv("cleaned_games.csv")
+    outs = count_outs(injuries_data)
+    rest = team_rest(games_data)
+    merged = match_injuries_to_games(outs, rest)
     injuries_data.to_csv("cleaned_injuries.csv")
+    merged.to_csv("games_and_injuries.csv")
 
 
 if __name__ == "__main__":
