@@ -1,8 +1,9 @@
 """
 Ajay Shah
 CSE 163
-This file tests the functions in data_cleaning.py on smaller data files in the test_data folder. 
-The tests run inside test_data, so none of our real data files are being used, read, or overwritten.
+This file tests the functions in data_cleaning.py on smaller data files in the
+test_data folder. The tests run inside test_data, so none of our real data
+files are being used, read, or overwritten.
 """
 import os
 
