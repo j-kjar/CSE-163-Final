@@ -30,7 +30,6 @@ def main() -> None:
     print(f"Status counts: {injuries["report_status"].value_counts()}")
     print(f"Teams in merged: {merged["team"].value_counts()}")
     print(f"Teams in injuries: {injuries["team"].value_counts()}")
-    print(f"Number of game ids: {merged["game_id"].nunique()}")
 
 
 if __name__ == '__main__':
