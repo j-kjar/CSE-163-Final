@@ -1,6 +1,6 @@
 """
-Jack Kjar
-CSE 163 AE
+Jack Kjar, Ajay Shah, Shreyas Sao
+CSE 163
 This file contains a script that finds the shape/size of our datasets, the
 number of missing entries in our datasets, the seven number summary of
 each quantitative variable, and the counts of each categorical variable.
