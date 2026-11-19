@@ -18,7 +18,7 @@ def visualizations() -> None:
     ireport_counts = injuries["report_status"].value_counts()
     ireports = px.bar(
         x=ireport_counts.index,
-        y=ireport_counts.values,
+        y=ireport_counts.to_numpy(),
         labels={"x": "Report Status", "y": "Number of entries"},
         title="Number of entries per report status in "
               "cleaned_injuries.csv (2012-2025)"
@@ -28,7 +28,7 @@ def visualizations() -> None:
     iseason_counts = injuries["season"].value_counts()
     iseasons = px.bar(
         x=iseason_counts.index,
-        y=iseason_counts.values,
+        y=iseason_counts.to_numpy(),
         labels={"x": "Season", "y": "Number of entries"},
         title="Number of entries per season in "
               "cleaned_injuries.csv (2012-2025)"
@@ -38,7 +38,7 @@ def visualizations() -> None:
     iweek_counts = injuries["week"].value_counts()
     iweeks = px.bar(
         x=iweek_counts.index,
-        y=iweek_counts.values,
+        y=iweek_counts.to_numpy(),
         labels={"x": "Week", "y": "Number of entries"},
         title="Number of entries per week in "
               "cleaned_injuries.csv (2012-2025)"
@@ -48,7 +48,7 @@ def visualizations() -> None:
     iteam_counts = injuries["team"].value_counts()
     iteams = px.bar(
         x=iteam_counts.index,
-        y=iteam_counts.values,
+        y=iteam_counts.to_numpy(),
         labels={"x": "Team", "y": "Number of entries"},
         title="Number of entries per team in "
               "cleaned_injuries.csv (2012-2025)"
@@ -58,7 +58,7 @@ def visualizations() -> None:
     ipos_counts = injuries["position"].value_counts()
     ipositions = px.bar(
         x=ipos_counts.index,
-        y=ipos_counts.values,
+        y=ipos_counts.to_numpy(),
         labels={"x": "Position", "y": "Number of entries"},
         title="Number of entries per position in "
               "cleaned_injuries.csv (2012-2025)"
@@ -68,7 +68,7 @@ def visualizations() -> None:
     mseason_counts = merged["season"].value_counts()
     mseasons = px.bar(
         x=mseason_counts.index,
-        y=mseason_counts.values,
+        y=mseason_counts.to_numpy(),
         labels={"x": "Season", "y": "Number of entries"},
         title="Number of entries per season in "
               "games_and_injuries.csv (2012-2025)"
@@ -78,7 +78,7 @@ def visualizations() -> None:
     mweek_counts = merged["week"].value_counts()
     mweeks = px.bar(
         x=mweek_counts.index,
-        y=mweek_counts.values,
+        y=mweek_counts.to_numpy(),
         labels={"x": "Week", "y": "Number of entries"},
         title="Number of entries per week in "
               "games_and_injuries.csv (2012-2025)"
@@ -88,7 +88,7 @@ def visualizations() -> None:
     mteam_counts = merged["team"].value_counts()
     mteams = px.bar(
         x=mteam_counts.index,
-        y=mteam_counts.values,
+        y=mteam_counts.to_numpy(),
         labels={"x": "Team", "y": "Number of entries"},
         title="Number of entries per team in "
               "games_and_injuries.csv (2012-2025)"
@@ -98,7 +98,7 @@ def visualizations() -> None:
     mrest_counts = merged["rest_days"].value_counts()
     mrest = px.bar(
         x=mrest_counts.index,
-        y=mrest_counts.values,
+        y=mrest_counts.to_numpy(),
         labels={"x": "Rest Days", "y": "Number of entries"},
         title="Number of entries per rest day in "
               "games_and_injuries.csv (2012-2025)"
@@ -108,7 +108,7 @@ def visualizations() -> None:
     minjuries_counts = merged["injuries"].value_counts()
     minjuries = px.bar(
         x=minjuries_counts.index,
-        y=minjuries_counts.values,
+        y=minjuries_counts.to_numpy(),
         labels={"x": "Number of Injuries", "y": "Number of entries"},
         title="Number of entries per number of injuries in "
               "games_and_injuries.csv (2012-2025)"
@@ -118,6 +118,7 @@ def visualizations() -> None:
 
 def main():
     visualizations()
+    print("All visualizations created!")
 
 
 if __name__ == "__main__":
