@@ -13,7 +13,8 @@ import data_analysis
 
 TEST_FOLDER = 'test_data'
 
-def run_analysis()->str:
+
+def run_analysis() -> str:
     '''
     Runs the main method in data_analysis.py and returns everything it prints
     '''
@@ -28,9 +29,10 @@ def run_analysis()->str:
 
     return output.getvalue()
 
+
 def test_shapes(output: str) -> None:
     '''
-    Tests to see if the merged shape sizes work for the smaller testing datasets
+    Tests to see if the merged shape sizes work for the small testing datasets
     '''
     assert '(Rows,Columns) Merged:(4, 6). Injuries:(5, 5)' in output
 
@@ -59,7 +61,7 @@ def test_describe(output: str) -> None:
 
 def test_counts(output: str) -> None:
     '''
-    Tests the counts of Positions, Statuses, and Teams 
+    Tests the counts of Positions, Statuses, and Teams
     '''
     assert 'WR    2' in output
     assert 'QB    1' in output
