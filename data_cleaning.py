@@ -1,5 +1,5 @@
 """
-Jack Kjar and Ajay Shah
+Jack Kjar, Ajay Shah, Shreyas Sao
 CSE 163
 This file contains a script that cleans our injuries and game datasets.
 It merges all injuries datasets into one master set, and keeps only the
