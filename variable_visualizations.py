@@ -1,5 +1,5 @@
 """
-Jack Kjar
+Jack Kjar, Ajay Shah, Shreyas Sao
 CSE 163
 This file contains a script that creates a visualization for every variable
 of interest outlined in our report.
